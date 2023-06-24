@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using GameJolt.API;
+using GameJolt.API.Objects;
 
 public class Pared : MonoBehaviour
 {
@@ -9,7 +12,7 @@ public class Pared : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             Destroy(collision.gameObject);
-            UnityEngine.SceneManagement.SceneManager.LoadScene("Derrota");
+            SceneManager.LoadScene("Derrota");
         }
     }
 }

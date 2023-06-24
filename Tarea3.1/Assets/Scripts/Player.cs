@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GameJolt.API;
+using GameJolt.API.Objects;
 
 public class Player : MonoBehaviour
 {
@@ -10,6 +12,30 @@ public class Player : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+       
+        Trophies.Get(197820, (Trophy trophy) =>
+        {
+            if (trophy != null)
+            {
+                Trophies.TryUnlock(trophy, (TryUnlockResult result) =>
+                {
+                    switch (result)
+                    {
+                        case TryUnlockResult.Unlocked:
+                            Debug.Log("exito");
+                            break;
+                        case TryUnlockResult.AlreadyUnlocked:
+                            Debug.Log("Dije exito");
+                            break;
+                        case TryUnlockResult.Failure:
+                            Debug.Log("Terrible");
+                            break;
+                    }
+                });
+            }
+        });
+
+
     }
 
     void FixedUpdate()

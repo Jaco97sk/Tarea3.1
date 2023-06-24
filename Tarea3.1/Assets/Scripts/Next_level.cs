@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using GameJolt.API;
+using GameJolt.API.Objects;
 
 public class Next_level : MonoBehaviour
 {
@@ -9,7 +11,29 @@ public class Next_level : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-           SceneManager.LoadScene("Nivel 2");
+            Trophies.Get(197821, (Trophy trophy) =>
+            {
+                if (trophy != null)
+                {
+                    Trophies.TryUnlock(trophy, (TryUnlockResult result) =>
+                    {
+                        SceneManager.LoadScene("Nivel 2");
+                        switch (result)
+                        {
+                            case TryUnlockResult.Unlocked:
+                                Debug.Log("exito");
+                                break;
+                            case TryUnlockResult.AlreadyUnlocked:
+                                Debug.Log("Dije exito");
+                                break;
+                            case TryUnlockResult.Failure:
+                                Debug.Log("Terrible");
+                                break;
+                        }
+                    });
+                }
+            });
+            
         }
     }
 
